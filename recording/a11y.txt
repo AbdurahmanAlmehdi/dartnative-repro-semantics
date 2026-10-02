@@ -1,0 +1,38 @@
+iOS accessibility tree of the repro screen, DartNative 1.0.0, iPhone 17 simulator (iOS 26.1).
+Captured with an XCUITest that prints XCUIApplication(bundleIdentifier: "dev.lbytech.repro.issueSemantics").debugDescription
+while the app was running. Element pointers trimmed; frames in points.
+
+The three controls in the row (y = 279.7):
+  1. hold-to-delete circle (GestureDetector + Container + Icon)  -> Other, child StaticText label ''  (no label, no Button trait)
+  2. export IconButton (icon only)                               -> Other, child StaticText label ''  (no label, no Button trait)
+  3. Button(title: 'Save'), for comparison                       -> Button, label 'Save'
+
+Element subtree (from the dump):
+ →Application, pid: 93457, label: 'Issue Semantics'
+    Window (Main), {{0.0, 0.0}, {402.0, 874.0}}
+      Other, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, {{0.0, 0.0}, {402.0, 874.0}}
+            NavigationBar, {{0.0, 62.0}, {402.0, 54.0}}, identifier: 'Semantics'
+              StaticText, {{159.0, 72.7}, {83.7, 22.7}}, label: 'Semantics'
+            Other, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, {{0.0, 0.0}, {402.0, 116.0}}
+                    Other, {{0.0, 116.0}, {402.0, 758.0}}
+                      Other, {{16.0, 132.0}, {370.0, 726.0}}
+                        StaticText, {{16.0, 132.0}, {160.7, 19.7}}, label: 'No Semantics widget'
+                        StaticText, {{16.0, 157.7}, {370.0, 47.0}}, label: 'Expected (Flutter): Semantics(label: 'Hold to delete', button: true, ...) makes VoiceOver / TalkBack read the custom control as a labelled button.'
+                        StaticText, {{16.0, 208.7}, {370.0, 47.0}}, label: 'Actual: no Semantics, and Icon has no semanticLabel, so the two controls below have no label or button role in the accessibility tree.'
+                        Other, {{16.0, 279.7}, {370.0, 64.0}}
+                          Other, {{16.0, 279.7}, {64.0, 64.0}}
+                            StaticText, {{33.0, 296.7}, {30.0, 30.0}}, label: ''
+                          Other, {{104.0, 287.7}, {48.0, 48.0}}
+                            StaticText, {{116.0, 299.7}, {24.0, 24.0}}, label: ''
+                          Button, {{176.0, 292.3}, {61.0, 38.3}}, label: 'Save'
+                            StaticText, {{188.0, 299.3}, {37.0, 24.3}}, label: 'Save'
+                        StaticText, {{16.0, 355.7}, {327.0, 29.0}}, label: '1: hold-to-delete (GestureDetector)   2: export (icon-only IconButton)   3: Save (text Button, for comparison)'
+                        StaticText, {{16.0, 396.7}, {115.0, 17.3}}, label: 'Record #184 kept'
+            Other, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, {{0.0, 0.0}, {402.0, 874.0}}
