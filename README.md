@@ -1,5 +1,7 @@
 # Repro: no Semantics widget, so custom controls have no accessibility label or role
 
+Issue: https://github.com/DartNative/dartnative/issues/63
+
 DartNative 1.0.0 has no `Semantics` (nor `MergeSemantics` / `ExcludeSemantics`), and `Icon` has no `semanticLabel`. A custom control built from `GestureDetector` (a hold-to-delete button) or an icon-only `IconButton` therefore can't be given a label or a button role, and VoiceOver / TalkBack users can't tell what it is.
 
 ## Run
